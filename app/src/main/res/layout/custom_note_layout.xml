@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ELayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="theirfanullah.com.eventsapp.SingleEvent">
+
+
+            <TextView
+                android:id="@+id/ntitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="4dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/ndesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="4dp"
+                android:maxLength="200"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/ndate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_gravity="right"
+                android:textColor="@color/black"
+                android:layout_marginBottom="4dp"
+                android:text="TextView" />
+            <TextView
+                android:id="@+id/nId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 />
+
+</LinearLayout>
