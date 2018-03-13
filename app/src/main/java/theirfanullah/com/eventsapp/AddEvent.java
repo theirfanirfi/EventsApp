@@ -130,14 +130,12 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
         addEvent = (Button) findViewById(R.id.addEventBtn);
         calendar = Calendar.getInstance();
         Db = new DbHelper(this);
-        String ctb  = Db.createTB();
 
-
-                ename = (EditText) findViewById(R.id.eventname);
+        ename = (EditText) findViewById(R.id.eventname);
         electurer = (EditText) findViewById(R.id.eventlecturer);
         elocation = (EditText) findViewById(R.id.eventlocation);
         edescription = (EditText) findViewById(R.id.eventdescription);
-        edescription.setText(ctb);
+
         /*
         # The following block of code is for initializing @DatePickerDialog,
         # The @DatePickerDialog takes @5 argument
