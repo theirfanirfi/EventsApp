@@ -56,7 +56,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
 
     String choosenColor = ""; //String variable for storing the value of a choosen color.
     int day, month, year;
-    String sDay, sMonth, sYear, dayInString, completeDate; //variables for storing the values of choosen date, year, month and Day name
+    String sDay, sMonth, sYear, dayInString,weekNumber, completeDate; //variables for storing the values of choosen date, year, month and Day name
     Calendar calendar; // Calendar for setting the default date in the @DatePickerDialog
     /*
     # The following is the Array of strings, in which the name of the days are stored.
@@ -68,7 +68,6 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
-
         spinner = (Spinner) findViewById(R.id.spinner);
         ArrayList<String> l = new ArrayList<>();
 
@@ -131,11 +130,14 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
         addEvent = (Button) findViewById(R.id.addEventBtn);
         calendar = Calendar.getInstance();
         Db = new DbHelper(this);
-        ename = (EditText) findViewById(R.id.eventname);
+        String ctb  = Db.createTB();
+
+
+                ename = (EditText) findViewById(R.id.eventname);
         electurer = (EditText) findViewById(R.id.eventlecturer);
         elocation = (EditText) findViewById(R.id.eventlocation);
         edescription = (EditText) findViewById(R.id.eventdescription);
-
+        edescription.setText(ctb);
         /*
         # The following block of code is for initializing @DatePickerDialog,
         # The @DatePickerDialog takes @5 argument
@@ -204,6 +206,7 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
                 contentValues.put(Db.EVENT_DATE,completeDate);
                 contentValues.put(Db.EVENT_DAY,dayInString);
                 contentValues.put(Db.EVENT_TIME,etbtn.getText().toString());
+                contentValues.put(Db.EVENT_WEEK,weekNumber);
                 boolean isInserted = Db.addEvent(contentValues);
                 if(isInserted)
                 {
@@ -228,7 +231,10 @@ public class AddEvent extends AppCompatActivity implements DatePickerDialog.OnDa
 
         GregorianCalendar gregorianCalendar = new GregorianCalendar(year, month,dayOfMonth-1);
         int s = gregorianCalendar.get(GregorianCalendar.DAY_OF_WEEK);
+        int w = gregorianCalendar.get(GregorianCalendar.WEEK_OF_YEAR);
+        weekNumber = Integer.toString(w);
         sDay = Integer.toString(dayOfMonth);
+
         sMonth = Integer.toString(month+1);
         sYear = Integer.toString(year);
         dayInString = DAYS[s-1];

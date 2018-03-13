@@ -20,11 +20,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class SunFragment extends Fragment {
     public final static String DAY = "Sun";
     ListView lv;
     DbHelper db;
+    String WEEK = "";
+    Calendar calendar;
+    GregorianCalendar gregorianCalendar;
     ArrayAdapter<String> listAdapter;
     ArrayList<String> lsName, lsDesc, lsDate,lsId, lsColor;
     int i = 0;
@@ -36,6 +41,13 @@ public class SunFragment extends Fragment {
         lsDate = new ArrayList<>();
         lsId = new ArrayList<>();
         lsColor = new ArrayList<>();
+        calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        gregorianCalendar = new GregorianCalendar(year, month,dayOfMonth-1);
+        int w = gregorianCalendar.get(GregorianCalendar.WEEK_OF_YEAR);
+        WEEK = Integer.toString(w);
         db = new DbHelper(getContext());
         lv = (ListView) rootView.findViewById(R.id.eventsList);
         loadEvents();
@@ -66,7 +78,7 @@ public class SunFragment extends Fragment {
         try
         {
 
-            Cursor cursor = db.fetchEventsByDayName(DAY);
+            Cursor cursor = db.fetchEventsByDayName(DAY, WEEK);
 
             if(cursor.getCount()> 0)
             {
@@ -104,7 +116,7 @@ public class SunFragment extends Fragment {
         try
         {
 
-            Cursor cursor = db.fetchEventsByDayName(DAY);
+            Cursor cursor = db.fetchEventsByDayName(DAY,WEEK);
 
             if(cursor.getCount()> 0)
             {

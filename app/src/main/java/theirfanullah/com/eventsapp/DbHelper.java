@@ -49,6 +49,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String EVENT_TIME = "event_time";
     public static final String EVENT_DATE = "event_date";
     public static final String EVENT_DAY = "event_day";
+    public static final String EVENT_WEEK = "event_week";
 
     //columns of the second @note_tbl
 
@@ -70,7 +71,8 @@ public class DbHelper extends SQLiteOpenHelper {
             +EVENT_LOCATION+" VARCHAR(200), "
             +EVENT_TIME+" VARCHAR(150), "
             +EVENT_DAY+ " VARCHAR(200), " +
-            EVENT_COLOR+ " VARCHAR (50)"+
+            EVENT_COLOR+ " VARCHAR(50), "+
+            EVENT_WEEK+" VARCHAR(20)"+
             " );";
 
     //@note_tbl creation sql query
@@ -83,7 +85,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public DbHelper(Context context) {
         // in this constructer database will be created with version 1
-        super(context, DB_NAME, null, 1);
+        super(context, DB_NAME, null, 3);
     }
 
     @Override
@@ -110,6 +112,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(CREATE_EVENTS_TBL);
     }
 
     // the following function will addEvent.
@@ -148,11 +151,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     //the following function is for fetching event by day name. such as Fri, sat, Sun e.t.c
-    public Cursor fetchEventsByDayName(String day)
+    public Cursor fetchEventsByDayName(String day, String week)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         // data is fetched and stored in @Cursor class object.
-        Cursor res = db.rawQuery("SELECT * FROM "+EVENTS_TBL+" WHERE "+EVENT_DAY+" = '"+day+"'",null);
+        Cursor res = db.rawQuery("SELECT * FROM "+EVENTS_TBL+" WHERE "+EVENT_DAY+" = '"+day+"' AND "+EVENT_WEEK+" = '"+week+"'",null);
         return res;
     }
 

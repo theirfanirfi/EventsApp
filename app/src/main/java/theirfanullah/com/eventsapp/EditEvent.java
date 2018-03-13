@@ -43,6 +43,7 @@ public class EditEvent extends AppCompatActivity implements DatePickerDialog.OnD
      */
     Button cpbtn, ebtn, etbtn, editEvent;
     Spinner spinner;
+    String weekNumber= "";
 
     /*
     # The following are the reference objects of the text fields which are initialized in the @OnCreate method.
@@ -233,6 +234,7 @@ public class EditEvent extends AppCompatActivity implements DatePickerDialog.OnD
                 contentValues.put(Db.EVENT_DATE,completeDate);
                 contentValues.put(Db.EVENT_DAY,dayInString);
                 contentValues.put(Db.EVENT_TIME,etbtn.getText().toString());
+                contentValues.put(Db.EVENT_WEEK,weekNumber);
 
                 //when all the values are putted in the @contentValues object then this object is passed to the function declared
                 // in the @DbHelper class.
@@ -266,6 +268,9 @@ public class EditEvent extends AppCompatActivity implements DatePickerDialog.OnD
         GregorianCalendar gregorianCalendar = new GregorianCalendar(year, month,dayOfMonth-1);
         int s = gregorianCalendar.get(GregorianCalendar.DAY_OF_WEEK);
         sDay = Integer.toString(dayOfMonth);
+
+        int w = gregorianCalendar.get(GregorianCalendar.WEEK_OF_YEAR);
+        weekNumber = Integer.toString(w);
         sMonth = Integer.toString(month+1);
         sYear = Integer.toString(year);
         dayInString = DAYS[s-1];
